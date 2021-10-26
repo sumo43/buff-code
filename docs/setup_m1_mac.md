@@ -21,7 +21,7 @@ Create and activate new virtual environment:
     conda create --name buffpy python=3.8
     conda activate buffpy
 ```
-(you will need to run the last line whenever you use buffpy)
+*(you will need to run the last line whenever you use buffpy)*
 
 
 Install Apple's version of Tensorflow (tensorflow-metal optional)
@@ -32,7 +32,10 @@ Install Apple's version of Tensorflow (tensorflow-metal optional)
 ```
 
 Launch a jupyter notebook with the conda environment:
-jupyter notebook
+
+```
+    jupyter notebook
+```
 
 
 
