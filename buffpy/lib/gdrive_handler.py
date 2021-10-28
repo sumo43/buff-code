@@ -86,13 +86,32 @@ class GD_Handler:
 			batch = self.handle['UNLABELED_DATA_FOLDER_ID']
 		else:
 			batch = self.handle[batch]
+
 		
 		file_list = self.drive.ListFile({'q': f'\'{batch}\' in parents and trashed=false'}).GetList()
 		print(f'GDrive handler Downloading from {batch}')
 
 		for file in file_list:
+			
 			print(f'GDrive handler Downloading {file["title"]}...')
 			#data = drive.CreateFile({'id': file['id']})
 			file.GetContentFile(os.path.join(os.getenv('PROJECT_ROOT'), 'data', file['title']))
 			file = None
+
+	def downloadAll(self):
+		file_list = self.drive.ListFile({'q': '"1xbUjNikCRECvyhDlnj4AgHSuClKYdCI5" in parents and trashed=false'}).GetList()
+		for f in file_list:
+			try:
+				sub_list = self.drive.ListFile({'q': f'\'{f["id"]}\' in parents and trashed=false'}).GetList()
+				
+				for sub_f in sub_list:
+					print(f'GDrive handler Downloading {sub_f["title"]} from {f["title"]}')
+
+					try:
+						sub_f.GetContentFile(os.path.join(os.getenv('PROJECT_ROOT'), 'data', sub_f['title']))
+					except Exception as e:
+						print(e)
+			except Exception as e:
+				print(e)
+				
 
